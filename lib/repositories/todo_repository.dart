@@ -6,16 +6,16 @@ import 'package:todo_app/models/todo_model.dart';
 import '../models/task_model.dart';
 
 const todoUrl = 'http://localhost:3000/todos';
-final taskByIdUrl = (Id) => 'http://localhost:3000/tasks/${Id}';
-final tasksUrl = (todoId) => 'http://localhost:3000/tasks/todoid/${todoId}';
+final taskByIdUrl = (Id) => 'http://localhost:3000/tasks/$Id';
+final tasksUrl = (todoId) => 'http://localhost:3000/tasks/todoid/$todoId';
 class TodoRepository{
   final http.Client httpClient;
 
-  TodoRepository({required this.httpClient}): assert(httpClient != null);
+  TodoRepository({required this.httpClient});
 
   //get Todos
   Future<List<Todo>> getTodos() async {
-    final response = await this.httpClient.get(Uri.parse(todoUrl));
+    final response = await httpClient.get(Uri.parse(todoUrl));
     if(response.statusCode != 200){
       throw Exception('Error getting todos');
     }
@@ -24,7 +24,7 @@ class TodoRepository{
   }
   //get Tasks
   Future<List<Task>> getTasks(int? todoId) async {
-    final response = await this.httpClient.get(Uri.parse(tasksUrl(todoId)));
+    final response = await httpClient.get(Uri.parse(tasksUrl(todoId)));
     if(response.statusCode != 200){
       throw Exception('Error getting todos');
     }
@@ -32,12 +32,12 @@ class TodoRepository{
     return tasks.map((e) => Task.fromJson(e)).toList();
   }
   //get task from id
-  Future<List<Task>> getTaskById(int? Id) async {
-    final response = await this.httpClient.get(Uri.parse(taskByIdUrl(Id)));
+  Future<Task> getTaskById(int? Id) async {
+    final response = await httpClient.get(Uri.parse(taskByIdUrl(Id)));
     if(response.statusCode != 200){
       throw Exception('Error getting todos');
     }
-    final task = jsonDecode(response.body)['data'] as List;
-    return task.map((e) => Task.fromJson(e)).toList();
+    Map<String, dynamic> task = jsonDecode(response.body)['data'] ;
+    return Task.fromJson(task);
   }
 }

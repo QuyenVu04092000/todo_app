@@ -10,7 +10,7 @@ import 'detail_task_screen.dart';
 
 class TaskScreen extends StatefulWidget{
   final int todoId;
-  TaskScreen({required this.todoId});
+  const TaskScreen({required this.todoId});
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -27,13 +27,13 @@ class _TaskScreenState extends State<TaskScreen>{
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey,
-        title: Text('List of tasks'),
+        title: const Text('List of tasks'),
         actions: <Widget>[
           IconButton(
               onPressed: () {
 
               },
-              icon: Icon(Icons.add),
+              icon: const Icon(Icons.add),
           )
         ],
       ),
@@ -47,44 +47,42 @@ class _TaskScreenState extends State<TaskScreen>{
                 },
                 builder: (context, taskState){
                   if(taskState is TaskStateLoading){
-                    return Center(child: CircularProgressIndicator(),);
+                    return const Center(child: CircularProgressIndicator(),);
                   }
                   if(taskState is TaskStateSuccess){
                     final tasks = taskState.tasks;
                     return ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: tasks.length,
                       itemBuilder: (context, index){
                         final Size = MediaQuery.of(context).size;
                         return GestureDetector(
                           child: Card(
-                            margin: EdgeInsets.only(top: 15,left: 10, right: 10),
+                            margin: const EdgeInsets.only(top: 15,left: 10, right: 10),
                             elevation: 15,
                             shape:
-                            RoundedRectangleBorder(
+                            const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.all(Radius.circular(10)),
                                 side: BorderSide(width: 3, color: Colors.black)
                             ),
                             child: Container(
-                              padding: EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(10),
                               child:TaskListWidget(tasks: tasks, index: index,)
                             )
                           ),
                           onTap: () async {
-                            final Id = await tasks[index].id;
-                            if( Id != null){
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) => DetailTaskScreen(Id: Id))
-                              );
-                            }
+                            final Id = tasks[index].id;
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) => DetailTaskScreen(Id: Id))
+                            );
                           },
                         );
                       },
                     );
                   }
                   if(taskState is TaskStateFail){
-                    return Center(
+                    return const Center(
                         child: Text('Can connect to server',
                           style: TextStyle(
                               color: Colors.redAccent,
@@ -92,7 +90,7 @@ class _TaskScreenState extends State<TaskScreen>{
                           ),)
                     );
                   }
-                  return Center(
+                  return const Center(
                     child: Text('error'),
                   );
                 },

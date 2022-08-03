@@ -22,8 +22,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   final TodoRepository todoRepository;
-  MyApp({Key? key, required this.todoRepository}):
-      assert(todoRepository != null),
+  const MyApp({Key? key, required this.todoRepository}):
       super(key:key);
   // This widget is the root of your application.
   @override
@@ -32,11 +31,10 @@ class MyApp extends StatelessWidget {
       title: 'To do list',
       useInheritedMediaQuery: true,
       locale: DevicePreview.locale(context),
-      builder: DevicePreview.appBuilder,
       theme: ThemeData.light(),
       debugShowCheckedModeBanner: false,
       home: BlocProvider(
-        create: (context) => TodoBloc(todoRepository: todoRepository)..add(TodoEventRequested()),
+        create: (context) => TodoBloc(todoRepository: todoRepository)..add(const TodoEventRequested()),
         child: TodoScreen(),
       ),
     );

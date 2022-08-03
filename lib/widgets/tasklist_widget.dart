@@ -4,9 +4,7 @@ import 'package:todo_app/models/task_model.dart';
 class TaskListWidget extends StatelessWidget{
   final List<Task> tasks;
   final int index;
-  TaskListWidget({Key? key, required this.tasks, required this.index}):
-        assert(tasks != null),
-        assert(index != null),
+  const TaskListWidget({Key? key, required this.tasks, required this.index}):
         super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -16,7 +14,7 @@ class TaskListWidget extends StatelessWidget{
         SizedBox(
           height: Size.height * 0.01,
         ),
-        Text(tasks[index].name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+        Text(tasks[index].name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
         SizedBox(
           height: Size.height * 0.01,
         ),

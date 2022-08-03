@@ -7,7 +7,6 @@ import 'package:todo_app/states/todo_state.dart';
 class TodoBloc extends Bloc<TodoEvent,TodoState>{
   final TodoRepository todoRepository;
   TodoBloc({required this.todoRepository}):
-      assert(todoRepository != null),
       super(TodoStateInitial());
   @override
   Stream<TodoState> mapEventToState(TodoEvent todoEvent) async* {

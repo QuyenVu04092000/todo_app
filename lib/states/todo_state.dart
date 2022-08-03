@@ -11,8 +11,7 @@ class TodoStateInitial extends TodoState{}
 class TodoStateLoading extends TodoState{}
 class TodoStateSuccess extends TodoState{
   final List<Todo> todos;
-  const TodoStateSuccess({required this.todos}):
-      assert(todos != null);
+  const TodoStateSuccess({required this.todos});
   @override
   // TODO: implement props
   List<Object?> get props => [todos];
