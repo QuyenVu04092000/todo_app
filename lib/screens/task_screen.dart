@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/blocs/task_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:todo_app/events/task_event.dart';
+import 'package:todo_app/screens/tasklist_widget.dart';
 import 'package:todo_app/states/task_state.dart';
 import '../repositories/todo_repository.dart';
 
@@ -66,17 +67,7 @@ class _TaskScreenState extends State<TaskScreen>{
                             ),
                             child: Container(
                               padding: EdgeInsets.all(10),
-                              child: Column(
-                                children: <Widget>[
-                                  SizedBox(
-                                    height: Size.height * 0.01,
-                                  ),
-                                  Text(tasks[index].name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
-                                  SizedBox(
-                                    height: Size.height * 0.01,
-                                  ),
-                                ],
-                              ),
+                              child:TaskListWidget(tasks: tasks, index: index,)
                             )
                           ),
                           onTap: () async {},

@@ -3,11 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/blocs/todo_bloc.dart';
 import 'package:todo_app/screens/task_screen.dart';
+import 'package:todo_app/screens/todolist_widget.dart';
 import 'package:todo_app/states/todo_state.dart';
 
 import '../events/todo_event.dart';
 
-class TodoScreen extends StatelessWidget{
+class TodoScreen extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() => _TodoScreenState();
+}
+class _TodoScreenState extends State<TodoScreen>{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -43,30 +48,16 @@ class TodoScreen extends StatelessWidget{
                     itemBuilder: (context, index){
                       final Size = MediaQuery.of(context).size;
                       return GestureDetector(
-                          child: Card(
-                            margin: EdgeInsets.only(top: 15,left: 10, right: 10),
-                            elevation: 15,
-                            shape:
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(10)),
-                                side: BorderSide(width: 3, color: Colors.black)
-                            ),
-                            child: Column(
-                              children: <Widget>[
-                                SizedBox(
-                                    height: Size.height * 0.01,
-                                ),
-                                Text(todos[index].name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
-                                SizedBox(
-                                  height: Size.height * 0.001,
-                                ),
-                                Text('Date: ${todos[index].dueDate}',style: TextStyle(fontSize: 16),),
-                                SizedBox(
-                                  height: Size.height * 0.01,
-                                ),
-                              ],
-                            ),
+                        child: Card(
+                          margin: EdgeInsets.only(top: 15,left: 10, right: 10),
+                          elevation: 15,
+                          shape:
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                              side: BorderSide(width: 3, color: Colors.black)
                           ),
+                          child: TodoListWidget(todos: todos, index: index,)
+                        ),
                         onTap: () async {
                           final todoId = await todos[index].id;
                           if( todoId != null){
