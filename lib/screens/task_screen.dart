@@ -3,9 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/blocs/task_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:todo_app/events/task_event.dart';
-import 'package:todo_app/screens/tasklist_widget.dart';
+import 'package:todo_app/widgets/tasklist_widget.dart';
 import 'package:todo_app/states/task_state.dart';
 import '../repositories/todo_repository.dart';
+import 'detail_task_screen.dart';
 
 class TaskScreen extends StatefulWidget{
   final int todoId;
@@ -70,7 +71,14 @@ class _TaskScreenState extends State<TaskScreen>{
                               child:TaskListWidget(tasks: tasks, index: index,)
                             )
                           ),
-                          onTap: () async {},
+                          onTap: () async {
+                            final Id = await tasks[index].id;
+                            if( Id != null){
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) => DetailTaskScreen(Id: Id))
+                              );
+                            }
+                          },
                         );
                       },
                     );

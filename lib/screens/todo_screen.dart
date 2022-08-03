@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/blocs/todo_bloc.dart';
 import 'package:todo_app/screens/task_screen.dart';
-import 'package:todo_app/screens/todolist_widget.dart';
+import 'package:todo_app/widgets/todolist_widget.dart';
 import 'package:todo_app/states/todo_state.dart';
 
 import '../events/todo_event.dart';

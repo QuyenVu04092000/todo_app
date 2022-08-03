@@ -17,6 +17,10 @@ class TaskBloc extends Bloc<TaskEvent,TaskState>{
       yield TaskStateLoading();
       final List<Task> tasks = await todoRepository.getTasks(taskEvent.todoId);
       yield TaskStateSuccess(tasks: tasks);
+    } else if(taskEvent is TaskEventRequestedById){
+      yield TaskStateLoading();
+      final List<Task> task = await todoRepository.getTaskById(taskEvent.Id);
+      yield TaskByIdStateSuccess(task: task);
     } else {
       yield TaskStateFail();
     }

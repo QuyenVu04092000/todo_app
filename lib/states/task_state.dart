@@ -20,3 +20,11 @@ class TaskStateSuccess extends TaskState{
   List<Object?> get props => [tasks];
 }
 class TaskStateFail extends TaskState{}
+class TaskByIdStateSuccess extends TaskState{
+  final List<Task> task;
+  const TaskByIdStateSuccess({required this.task}):
+        assert(task != null);
+  @override
+  // TODO: implement props
+  List<Object?> get props => [task];
+}

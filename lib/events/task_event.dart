@@ -10,3 +10,10 @@ class TaskEventRequested extends TaskEvent{
   // TODO: implement props
   List<Object?> get props => [todoId];
 }
+class TaskEventRequestedById extends TaskEvent{
+  final int Id;
+  const TaskEventRequestedById({required this.Id}): assert(Id != null);
+  @override
+  // TODO: implement props
+  List<Object?> get props => [Id];
+}
