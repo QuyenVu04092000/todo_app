@@ -39,14 +39,8 @@ class _DetailTaskState extends State<DetailTaskScreen>{
                     return const Center(child: CircularProgressIndicator(),);
                   }
                   if(taskState is TaskByIdStateSuccess){
-                    final tasks = taskState.task;
-                    return ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: 1,
-                      itemBuilder: (context, index){
-                        final Size = MediaQuery.of(context).size;
-                        return Container(
+                    final task = taskState.task;
+                    return Container(
                           margin: const EdgeInsets.all(10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,11 +53,11 @@ class _DetailTaskState extends State<DetailTaskScreen>{
                                     border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black))
                                 ),
                                 autocorrect: false,
-                                controller: TextEditingController(text: tasks.name),
+                                controller: TextEditingController(text: task.name),
                                 textAlign: TextAlign.left,
                                 onChanged: (text){
                                   setState(() {
-                                    tasks.name = text;
+                                    task.name = text;
                                   });
                                 },
                               ),
@@ -74,10 +68,10 @@ class _DetailTaskState extends State<DetailTaskScreen>{
                                   children: <Widget>[
                                     const Text("Finished:",style: TextStyle(fontSize: 16)),
                                     Checkbox(
-                                        value: tasks.isfinished,
+                                        value: task.isfinished,
                                         onChanged: (bool? value){
                                           setState(() {
-                                            tasks.isfinished = value!;
+                                            task.isfinished = value!;
                                           });
                                         }
                                     ),
@@ -91,8 +85,14 @@ class _DetailTaskState extends State<DetailTaskScreen>{
                                         child: const Text("Save"),
                                         color: Theme.of(context).colorScheme.secondary,
                                         elevation: 4,
-                                        onPressed: (){
-
+                                        onPressed: () async {
+                                          Map<String, dynamic> params = Map<String, dynamic>();
+                                          params["id"] = task.id.toInt();
+                                          params["name"] = task.name.toString();
+                                          params["isfinished"] = task.isfinished ? "1" : "0";
+                                          params["todoid"] = task.todoId.toInt();
+                                          await todoRepository.updateATask(params);
+                                          Navigator.pop(context);
                                         },
                                       )
                                   )
@@ -101,8 +101,6 @@ class _DetailTaskState extends State<DetailTaskScreen>{
                             ],
                           ),
                         );
-                      },
-                    );
                   }
                   if(taskState is TaskStateFail){
                     return const Center(

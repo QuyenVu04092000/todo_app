@@ -18,6 +18,7 @@ class TaskListWidget extends StatelessWidget{
         SizedBox(
           height: Size.height * 0.01,
         ),
+        tasks[index].isfinished ? Text("Finished: Yes") : Text("Finished: No")
       ],
     );
   }

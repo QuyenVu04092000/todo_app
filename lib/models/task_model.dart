@@ -22,9 +22,9 @@ class Task extends Equatable {
   //convert from JSON to Todo object
   factory Task.fromJson(dynamic jsonObject){
     return Task(
-        id: jsonObject['id'] as int,
-        todoId: jsonObject['todoid'] as int,
-        name: jsonObject['name'].toString(),
+        id: jsonObject['id'] ,
+        todoId: jsonObject['todoid'] ,
+        name: jsonObject['name'],
         isfinished: jsonObject['isfinished']
     );
   }
