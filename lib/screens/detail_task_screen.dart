@@ -15,6 +15,20 @@ class DetailTaskScreen extends StatefulWidget{
   }
 }
 class _DetailTaskState extends State<DetailTaskScreen>{
+  final TextEditingController _controller = TextEditingController();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _controller.addListener(() {
+      _controller.value = _controller.value.copyWith(
+        text: _controller.text,
+        selection: 
+          TextSelection(baseOffset: _controller.text.length, extentOffset:  _controller.text.length),
+        composing: TextRange.empty,
+      );
+    });
+  }
   @override
   Widget build(BuildContext context) {
     final TodoRepository todoRepository = TodoRepository(
@@ -48,12 +62,12 @@ class _DetailTaskState extends State<DetailTaskScreen>{
                             children: <Widget>[
                               TextField(
                                 decoration: const InputDecoration(
-                                    hintText: "Enter task's name",
+                                    hintText: "Enter new task's name you want to change",
                                     contentPadding: EdgeInsets.all(10),
                                     border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black))
                                 ),
                                 autocorrect: false,
-                                controller: TextEditingController(text: task.name),
+                                controller: _controller,
                                 textAlign: TextAlign.left,
                                 onChanged: (text){
                                   setState(() {
@@ -85,14 +99,17 @@ class _DetailTaskState extends State<DetailTaskScreen>{
                                         child: const Text("Save"),
                                         color: Theme.of(context).colorScheme.secondary,
                                         elevation: 4,
-                                        onPressed: () async {
+                                        onPressed: () {
                                           Map<String, dynamic> params = Map<String, dynamic>();
-                                          params["id"] = task.id.toInt();
-                                          params["name"] = task.name.toString();
+                                          params["id"] = task.id.toString();
+                                          params["name"] = task.name;
                                           params["isfinished"] = task.isfinished ? "1" : "0";
-                                          params["todoid"] = task.todoId.toInt();
-                                          await todoRepository.updateATask(params);
-                                          Navigator.pop(context);
+                                          params["todoid"] = task.todoId.toString();
+                                          todoRepository.updateATask(params);
+                                          Navigator.popUntil(
+                                            context,
+                                            ModalRoute.withName(Navigator.defaultRouteName),
+                                          );
                                         },
                                       )
                                   )

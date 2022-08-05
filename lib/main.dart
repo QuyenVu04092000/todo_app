@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
       title: 'To do list',
       useInheritedMediaQuery: true,
       locale: DevicePreview.locale(context),
+      builder: DevicePreview.appBuilder,
       theme: ThemeData.light(),
       debugShowCheckedModeBanner: false,
       home: BlocProvider(
