@@ -14,11 +14,7 @@ class TodoListWidget extends StatelessWidget{
         SizedBox(
           height: Size.height * 0.01,
         ),
-        Text(todos[index].name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
-        SizedBox(
-          height: Size.height * 0.001,
-        ),
-        Text('Date: ${todos[index].dueDate}',style: const TextStyle(fontSize: 16),),
+        Text(todos[index].name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
         SizedBox(
           height: Size.height * 0.01,
         ),

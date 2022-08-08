@@ -34,6 +34,7 @@ class _DetailTaskState extends State<DetailTaskScreen>{
     final TodoRepository todoRepository = TodoRepository(
         httpClient: http.Client()
     );
+    final Size = MediaQuery.of(context).size;
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
@@ -97,8 +98,11 @@ class _DetailTaskState extends State<DetailTaskScreen>{
                                   Expanded(
                                       child: RaisedButton(
                                         child: const Text("Save"),
-                                        color: Theme.of(context).colorScheme.secondary,
+                                        color: Theme.of(context).accentColor,
                                         elevation: 4,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(15)
+                                        ),
                                         onPressed: () {
                                           Map<String, dynamic> params = Map<String, dynamic>();
                                           params["id"] = task.id.toString();
@@ -106,13 +110,33 @@ class _DetailTaskState extends State<DetailTaskScreen>{
                                           params["isfinished"] = task.isfinished ? "1" : "0";
                                           params["todoid"] = task.todoId.toString();
                                           todoRepository.updateATask(params);
+                                          Navigator.pop(
+                                            context,
+                                            ModalRoute.withName(Navigator.defaultRouteName),
+                                          );
+                                        },
+                                      )
+                                  ),
+                                  SizedBox(
+                                    width: Size.width * 0.02,
+                                  ),
+                                  Expanded(
+                                      child: RaisedButton(
+                                        child: const Text("Delete"),
+                                        color: Colors.redAccent,
+                                        elevation: 4,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(15)
+                                        ),
+                                        onPressed: () {
+                                          todoRepository.deleteTask(widget.Id);
                                           Navigator.popUntil(
                                             context,
                                             ModalRoute.withName(Navigator.defaultRouteName),
                                           );
                                         },
                                       )
-                                  )
+                                  ),
                                 ],
                               )
                             ],

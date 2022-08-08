@@ -21,7 +21,22 @@ class _TodoScreenState extends State<TodoScreen>{
         actions: <Widget>[
           IconButton(
             onPressed: () {
+              showDialog(
+                  context: context,
+                  barrierDismissible: true,
+                  builder: (BuildContext){
+                    return AlertDialog(
+                      title: Text("Add a todo"),
+                      content: SingleChildScrollView(
+                        child: ListBody(
+                          children: <Widget>[
 
+                          ],
+                        ),
+                      ),
+                    );
+                  }
+              );
             },
             icon: const Icon(Icons.add),
           )
